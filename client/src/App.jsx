@@ -9,13 +9,22 @@ function App () {
     }
     setTodos([...todos,todo])
     setTodo("")
-    console.log(todos);
   }
+function editTodo(index) {
+  const updated = prompt("Edit todo", todos[index]);
+  if (!updated) return;
+
+  setTodos(
+    todos.map((item, i) =>
+      i === index ? updated : item
+    )
+  );
+}
 
   return( 
     <>
     <div className="w-screen h-screen bg-black place-items-center place-content-center">
-      <div className="bg-white  w-120 h-80 rounded-xl">
+      <div className="bg-white w-120 h-80 overflow-y-auto rounded-xl">
       <h1 className="font-bold p-1 pl-3">TO-DO LIST</h1>
      <div>
       <input type="text" value = {todo} onChange={(e)=>{
@@ -31,10 +40,10 @@ function App () {
       {
         todos.map((item,index)=>(
           
-          // <div className="border-1 p-2 m-2">
-          <li key={index} className="font-semibold border-1 rounded p-2 m-2">{item}</li>
-
-          // </div>
+          <div className=" flex justify-between border-1 p-2 m-2">
+          <li key={index} className="font-semibold rounded-md ">{item}</li>
+          <button  onClick={() => editTodo(index)} className="cursor-pointer">edit</button>
+          </div>
         ))
       }
      </ol>
